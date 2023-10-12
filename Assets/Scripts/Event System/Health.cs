@@ -43,38 +43,39 @@ public class Health : MonoBehaviour
 	void Start()
     {
 		CurrentHealth = _maxHealth;
-		//Event Listener
-		OnGetDamage += () => Debug.Log("Life: " + CurrentHealth);
-		OnDie += () => Debug.Log("You Die!!");
-
-		GetDamage(20);
-		GetHeal(50);
-		GetDamage(10);
-		GetDamage(50);
+		
 	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	//Update is called once per frame
+
+	//void Update()
+	//{
+	//	if (Input.GetKeyUp(KeyCode.Return))
+	//		GetDamage(20);
+	//	if (Input.GetKeyUp(KeyCode.Space))
+	//		GetHeal(20);
+	//}
 	#endregion
 
 	#region Public Methods
 	public void GetDamage(float damage)
 	{
-		CurrentHealth -= damage;
-
-		//Damage Event Emiter
-		OnGetDamage?.Invoke();
+		if (!_die)
+		{
+			CurrentHealth -= damage;
+			//Damage Event Emiter
+			OnGetDamage?.Invoke();
+		}
 	}
 	public void GetHeal(float life)
 	{
-		CurrentHealth += life;
-		//Heal Event Emiter
-		OnGetHeal?.Invoke();
+		if (!_die)
+		{
+			CurrentHealth += life;
+			//Heal Event Emiter
+			OnGetHeal?.Invoke();
+		}
 	}
-
 	#endregion
 
 	#region Private Methods
